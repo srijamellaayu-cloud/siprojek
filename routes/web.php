@@ -9,6 +9,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test-db', function () {
+    try {
+        \DB::connection()->getPdo();
+        return "Database connection is successful!";
+    } catch (\Exception $e) {
+        return "Database connection failed: " . $e->getMessage();
+    }
+});
+
 Route::middleware(['auth'])->group(function () {
     // Redirect /dashboard based on role
     Route::get('/dashboard', function () {
