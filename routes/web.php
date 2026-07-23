@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::get('/search', [SearchController::class, 'search'])->name('search');
-    Route::get('/api/deadline-notifications', [App\Http\Controllers\Administrasi\DealController::class, 'getDeadlineNotifications'])->name('api.deadline.notifications');
+    Route::get('/notifications/deadline', [App\Http\Controllers\Administrasi\DealController::class, 'getDeadlineNotifications'])->name('api.deadline.notifications');
 
     // Route khusus administrasi
     Route::middleware(['role:administrasi'])->prefix('administrasi')->name('administrasi.')->group(function () {
