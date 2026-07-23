@@ -177,8 +177,8 @@ class PenawaranController extends Controller
         // kalau ada upload dokumen baru
         if ($request->hasFile('dokumen')) {
             // hapus file lama kalau ada
-            if ($penawaran->dokumen && file_exists(storage_path('app/public/' . $penawaran->dokumen))) {
-                unlink(storage_path('app/public/' . $penawaran->dokumen));
+            if ($penawaran->dokumen) {
+                Storage::disk('public')->delete($penawaran->dokumen);
             }
 
             // simpan file baru ke storage/public/dokumen

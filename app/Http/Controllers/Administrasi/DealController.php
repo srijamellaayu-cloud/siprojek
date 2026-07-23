@@ -278,8 +278,8 @@ class DealController extends Controller
         $deal->nomor_kontrak = $finalNomorKontrak;
 
         if ($request->hasFile('dokumen')) {
-            if ($deal->dokumen && file_exists(storage_path('app/public/' . $deal->dokumen))) {
-                unlink(storage_path('app/public/' . $deal->dokumen));
+            if ($deal->dokumen) {
+                Storage::disk('public')->delete($deal->dokumen);
             }
 
             $file = $request->file('dokumen');
@@ -303,8 +303,8 @@ class DealController extends Controller
         }
 
         if ($request->hasFile('dokumen_kontrak')) {
-            if ($deal->dokumen_kontrak && file_exists(storage_path('app/public/' . $deal->dokumen_kontrak))) {
-                unlink(storage_path('app/public/' . $deal->dokumen_kontrak));
+            if ($deal->dokumen_kontrak) {
+                Storage::disk('public')->delete($deal->dokumen_kontrak);
             }
 
             $file = $request->file('dokumen_kontrak');

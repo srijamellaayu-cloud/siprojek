@@ -30,6 +30,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::get('/notifications/deadline', [App\Http\Controllers\Administrasi\DealController::class, 'getDeadlineNotifications'])->name('api.deadline.notifications');
+    Route::get('/storage/{directory}/{filename}', function ($directory, $filename) {
+        $path = $directory . '/' . $filename;
+        if (!\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+            abort(404);
+        }
+        return \Illuminate\Support\Facades\Storage::disk('public')->response($path);
+    })->where('filename', '.*')->name('storage.serve');
 
     // Route khusus administrasi
     Route::middleware(['role:administrasi'])->prefix('administrasi')->name('administrasi.')->group(function () {
